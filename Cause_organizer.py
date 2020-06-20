@@ -34,19 +34,22 @@ def excommon3(a,b,c,com4): # if i in common(a,b,c) and not in allcommon
             xcommon3.append(i)
     return xcommon3
 
-def excommon2(a,b,com3s): # if i in common(a,b) and not in 3commons+allcommon
+def excommon2(a,b,com3s): # if i in common(a,b) and not in com3s
     temp=common2(a,b)
     xcommon2=[]
     for i in temp:
         if i not in com3s:
             xcommon2.append(i)
     return xcommon2
-def run(verbose = False, dates = ["../2020-04-19 Coronavirus Tweets.csv","../2020-04-21 Coronavirus Tweets.csv","../2020-04-22 Coronavirus Tweets.csv"]):
-    cause_list=cc.run(verbose=verbose, dates = dates)
-    anger=cause_list[3]
-    fear=cause_list[0]
+def run(verbose = False,
+        dates = ["../2020-04-19 Coronavirus Tweets.csv","../2020-04-21 Coronavirus Tweets.csv","../2020-04-22 Coronavirus Tweets.csv"],
+        printtweets=False, chunkScatter=False
+        ):
+    cause_list=cc.run(verbose=verbose, dates = dates,printtweets=printtweets,chunkScatter=chunkScatter)
+    anger=cause_list[0]
+    fear=cause_list[1]
     joy=cause_list[2]
-    sadness=cause_list[1]
+    sadness=cause_list[3]
     combined=anger+fear+joy+sadness
     com4=common4(anger,fear,joy,sadness)
     cmAFJ=excommon3(anger,fear,joy,com4)
@@ -126,24 +129,24 @@ def run(verbose = False, dates = ["../2020-04-19 Coronavirus Tweets.csv","../202
         print()
         print()
         print("Exclusively Anger")
-    for i in xA:
-        print(i,end=", ")
-    print()
-    print()
-    print("Exclusively Fear")
-    for i in xF:
-        print(i,end=", ")
-    print()
-    print()
-    print("Exclusively Joy")
-    for i in xJ:
-        print(i,end=", ")
-    print()
-    print()
-    print("Exclusively Sadness")
-    for i in xS:
-        print(i,end=", ")
-    return xA, xF, xJ, xS, cmFJS, cmAJS, cmAFS, cmAFJ,_A,_F,_J,_S
+        for i in xA:
+            print(i,end=", ")
+        print()
+        print()
+        print("Exclusively Fear")
+        for i in xF:
+            print(i,end=", ")
+        print()
+        print()
+        print("Exclusively Joy")
+        for i in xJ:
+            print(i,end=", ")
+        print()
+        print()
+        print("Exclusively Sadness")
+        for i in xS:
+            print(i,end=", ")
+    return xA, xF, xJ, xS, cmFJS, cmAJS, cmAFS, cmAFJ,_A,_F,_J,_S,com4
 
 if __name__ == '__main__':
     run(verbose = True)

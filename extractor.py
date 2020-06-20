@@ -47,14 +47,14 @@ def _create_bow(sentences, vectorizer=None, msg_prefix="\n", vocab = None):
     return vectorizer, sentence_vectors.toarray(), sentences
 
 class FeatureExtractor:
-    def __init__(self, num_vocab, num_classes):
+    def __init__(self, num_vocab, num_classes, scoreFactor):
         self.num_classes = num_classes
         self.num_vocab = num_vocab
 
         self.class_to_num_sentences = np.zeros(self.num_classes)
         self.class_and_word_to_counts = np.zeros((self.num_classes, self.num_vocab))
         self.score = np.zeros((self.num_classes, self.num_vocab))
-
+        self.sf=scoreFactor
         self.log_prior = None
         self.log_likelihood = None
 
@@ -97,12 +97,12 @@ class FeatureExtractor:
             ptr = 0
             for i, emotion in enumerate(feed_back):
                 for word in emotion:
-                    self.score[i][ptr] += 1
+                    self.score[i][ptr] += self.sf
                     ptr += 1            
         return feature_list
 
 
-def run(num_samples=10000, verbose=False, feed_back = None):
+def run(num_samples=10000, verbose=False, feed_back = [], scoreFactor=0):
     # Load the dataset
     tweets, emotions = get_data()
     (train_xs, train_ys), (val_xs, val_ys) = data_loader(tweets, emotions, num_samples, 0.75)
@@ -113,7 +113,7 @@ def run(num_samples=10000, verbose=False, feed_back = None):
     # Create bow representation of train set
     count_vectorizer, train_bows, _ = _create_bow(train_xs, msg_prefix="\n[Train]")
     myvocab = count_vectorizer.vocabulary_.copy()
-    if feed_back:
+    if not feed_back==[]:
         fb = feed_back[0] + feed_back[1] + feed_back[2] + feed_back[3]
         extend = len(fb)
         for word, id_ in myvocab.items():
@@ -127,7 +127,7 @@ def run(num_samples=10000, verbose=False, feed_back = None):
     counted = len(count_vectorizer.get_feature_names())
     if verbose:
         print("\n[Vocab]: {} words".format(counted))
-    fe = FeatureExtractor(num_vocab=counted, num_classes=4)
+    fe = FeatureExtractor(num_vocab=counted, num_classes=4,scoreFactor=scoreFactor)
     fe.fit(train_bows, train_ys)
     if verbose:
         print("\n[FeatureExtractor] Training Complete")
@@ -140,15 +140,17 @@ def run(num_samples=10000, verbose=False, feed_back = None):
     print(fe.score.shape, len(myvocab))
     print(fe.score[:,10])
     print(id2word[10])
+    title=["Word Cloud for Anger","Word Cloud for Fear","Word Cloud for Joy","Word Cloud for Sadness"]
     for i in range(4):
         top_feature = [(id2word[feat[0]], feat[1]) for feat in feature_list[i]]
         if verbose:
         	print(top_feature)
         	feat_dict = dict([(feat[0], np.exp(feat[1])) for feat in top_feature])
-        	wordcloud = WordCloud(max_font_size=50)
+        	wordcloud = WordCloud(max_font_size=80,width=800,height=400)
         	wordcloud.generate_from_frequencies(feat_dict)
         	# Display the generated image:
         	plt.imshow(wordcloud, interpolation='bilinear')
+        	plt.title(label=title[i])
         	plt.axis("off")
         	plt.show()        
     return fe, val_xs, val_ys, count_vectorizer

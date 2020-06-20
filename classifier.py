@@ -9,6 +9,8 @@ import re
 import extractor
 ##import negation
 import nltk
+import seaborn as sn
+import matplotlib.pyplot as plt
 
 class Classifier():
         def __init__(self, score, log_prior, num_classes = 4):
@@ -33,7 +35,7 @@ class Classifier():
                     if prior:
                         log_posterior = self.log_prior + np.sum(self.score * bow, axis=1)
                     else:
-                        log_posterior = np.sum(self.score * bow, axis=1)                        
+                        log_posterior = np.sum(self.score * bow, axis=1)
                     labels.append(np.argmax(log_posterior))
                     scores.append(np.max(log_posterior))
                 return np.asarray(labels), np.asarray(scores)
@@ -55,10 +57,11 @@ def read_data():
 
     return tweets, emotions    
 
-def run(num_samples = 10000, verbose = False, Covid = False, feed_back = None):
+def run(num_samples = 10000, verbose = False, Covid = False, feed_back = [],sf=0):
         # Extract features
 
-        ext, val_xs, val_ys, count_vectorizer = extractor.run(verbose = verbose, num_samples = num_samples, feed_back = feed_back)
+        ext, val_xs, val_ys, count_vectorizer = extractor.run(
+                verbose = verbose, num_samples = num_samples, feed_back = feed_back,scoreFactor=sf)
         if Covid:
             val_xs, val_ys = read_data()
 ##      negationArray = [negation.mark_negation(sent) for sent in val_xs]
@@ -74,6 +77,12 @@ def run(num_samples = 10000, verbose = False, Covid = False, feed_back = None):
         val_cm = confusion_matrix(val_ys, val_preds)        
         print("\n[Validation] Accuracy: {}".format(val_accuracy))
         print("\n[Validation] Confusion matrix: \n{}".format(val_cm))
+        
+        df = pd.DataFrame({'y_Actual':val_ys,'y_Predicted':val_preds}, columns=['y_Actual','y_Predicted'])
+        cm = pd.crosstab(df['y_Actual'], df['y_Predicted'], rownames=['Actual'], colnames=['Predicted'])
+        
+        sn.heatmap(cm, annot=True)
+        plt.show()
 
 
 if __name__ == '__main__':
