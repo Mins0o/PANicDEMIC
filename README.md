@@ -3,6 +3,7 @@
 **[Assem Zhunis](https://github.com/assemzh)**  
 **[Ern Chern](https://github.com/ernchern)**  
 **[Nguyen Khanh Thi](https://github.com/nguyenthi47)**  
+**[Minsoo Kang(강민수)](https://github.com/Mins0o)**  
 
 If you want to run our classifier, you'll need to get datas from [Kag](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-early-april)[gle](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-late-april).  
 
