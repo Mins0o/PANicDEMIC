@@ -1,5 +1,9 @@
-If you want to run our classifier, you'll need to get datas from [Kag](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-early-april)[gle](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-late-april)
-The main code you should use is the pipeline.py, but you might need to adjust classify.py and extractor.py
+If you want to run our classifier, you'll need to get datas from [Kag](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-early-april)[gle](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-late-april).  
+
+The main code you should use is the pipeline.py, but you might need to adjust classifier.py and extractor.py
+
+Datafile should be in the same level with the directory (or you can change the path to your file)
+
 
 # PANicDEMIC
 Detecting Emotions on COVID-19 Over Time Using NLP
@@ -14,6 +18,14 @@ Labeled tweets in 4 emotion categories: anger, fear, joy, sadness
 Extractor: return scored features based on Bayesian posterior probability
 
 Model: bag-of-word, Tf-idf vectorization
+
+Accuracy: ~80%
+### Cause extractor:
+Vectorization: Word2vec
+
+Cluster: K-mean
+
+### Feedback:
 
 ## Presentation video:
 [![Watch the video](https://img.youtube.com/vi/1AEVI7UAa6w/hqdefault.jpg)](https://www.youtube.com/watch?v=1AEVI7UAa6w)
