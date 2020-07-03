@@ -1,8 +1,8 @@
-**This is my fork of our NLP372 project. These are the links to the contributors' GitHubs.  
-**[Mai Tung Duong](https://github.com/john-mai-2605)  
-**[Assem Zhunis](https://github.com/assemzh)  
-**[Ern Chern](https://github.com/ernchern)  
-**[Nguyen Khanh Thi](https://github.com/nguyenthi47)  
+**This is my fork of our NLP372 project. These are the links to the contributors' GitHubs.**  
+**[Mai Tung Duong](https://github.com/john-mai-2605)**  
+**[Assem Zhunis](https://github.com/assemzh)**  
+**[Ern Chern](https://github.com/ernchern)**  
+**[Nguyen Khanh Thi](https://github.com/nguyenthi47)**  
 
 If you want to run our classifier, you'll need to get datas from [Kag](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-early-april)[gle](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-late-april).  
 
