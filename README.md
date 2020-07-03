@@ -5,7 +5,7 @@
 **[Nguyen Khanh Thi](https://github.com/nguyenthi47)**  
 **[Minsoo Kang(강민수)](https://github.com/Mins0o)**  
 
-If you want to run our classifier, you'll need to get datas from [Kag](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-early-april)[gle](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-late-april).  
+If you want to run our classifier, you'll need to get datas from [Kag](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-early-april)[gle](https://www.kaggle.com/smid80/coronavirus-covid19-tweets-late-april).  (If the data is not available, please contact me.)
 
 The main code you should use is the pipeline.py, but you might need to adjust classifier.py and extractor.py
 
